@@ -9,14 +9,10 @@ RUN dpkg --add-architecture i386
 RUN apt-get update
 
 # Install Wine
-RUN apt-get install -y software-properties-common gnupg2
-RUN apt-add-repository -r 'deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main' 
-RUN apt-get update
-RUN apt-get install -y --install-recommends winehq-stable winbind winetricks
+RUN apt-get install -y software-properties-common gnupg2 ca-certificates xvfb lib32gcc1 libntlm0 winbind wine64 winetricks --install-recommends
 ENV WINEDEBUG=fixme-all
 
 # Setup a Wine prefix
-ENV WINEPREFIX=/root/.demo 
 ENV WINEARCH=win64
 RUN winecfg
 
