@@ -25,3 +25,10 @@ RUN winecfg
 RUN wget -P /mono http://dl.winehq.org/wine/wine-mono/4.9.4/wine-mono-4.9.4.msi
 RUN wineboot -u && msiexec /i /mono/wine-mono-4.9.4.msi
 RUN rm -rf /mono/wine-mono-4.9.4.msi
+
+USER container
+ENV USER=container HOME=/home/container WINEARCH=win64 WINEPREFIX=/home/container/.wine64
+WORKDIR /home/container
+
+COPY ./entrypoint.sh /entrypoint.sh
+CMD ["/bin/bash", "/entrypoint.sh"]
