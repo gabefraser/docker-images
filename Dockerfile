@@ -16,6 +16,9 @@ ENV WINEDEBUG=fixme-all
 ENV WINEARCH=win64
 RUN winecfg
 
+# Setup winetricks
+RUN winetricks dotnet45
+
 # Install Mono
 RUN wget -P /mono http://dl.winehq.org/wine/wine-mono/4.9.4/wine-mono-4.9.4.msi
 RUN wineboot -u && msiexec /i /mono/wine-mono-4.9.4.msi
