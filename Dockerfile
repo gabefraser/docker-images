@@ -10,11 +10,9 @@ RUN apt-get update
 
 # Install Wine
 RUN apt-get install -y software-properties-common gnupg2
-RUN wget -nc https://dl.winehq.org/wine-builds/Release.key
-RUN apt-key add Release.key
-RUN apt-add-repository https://dl.winehq.org/wine-builds/ubuntu/
+RUN apt-add-repository -r 'deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main' 
 RUN apt-get update
-RUN apt-get install -y --install-recommends winehq-stable winbind
+RUN apt-get install -y --install-recommends winehq-stable winbind winetricks
 ENV WINEDEBUG=fixme-all
 
 # Setup a Wine prefix
