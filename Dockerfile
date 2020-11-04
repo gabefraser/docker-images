@@ -15,18 +15,18 @@ ENV WINEDEBUG=fixme-all
 # Setup a Wine prefix
 ENV WINEARCH=win64
 RUN winecfg
-
-# Setup winetricks
-RUN winetricks dotnet45
-
 # Install Mono
 RUN wget -P /mono http://dl.winehq.org/wine/wine-mono/4.9.4/wine-mono-4.9.4.msi
 RUN wineboot -u && msiexec /i /mono/wine-mono-4.9.4.msi
 RUN rm -rf /mono/wine-mono-4.9.4.msi
 
+# Setup the user
 USER container
 ENV USER=container HOME=/home/container WINEARCH=win64 WINEPREFIX=/home/container/.wine64
 WORKDIR /home/container
+
+# Setup winetricks
+RUN winetricks dotnet45
 
 COPY ./entrypoint.sh /entrypoint.sh
 CMD ["/bin/bash", "/entrypoint.sh"]
